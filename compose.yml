@@ -1,0 +1,26 @@
+services:
+  db:
+    build: ./db
+    env_file:
+      - .env
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    healthcheck:
+      test: mysql ${MYSQL_DATABASE} --user=${MYSQL_USER} --password='${MYSQL_PASSWORD}' --silent --execute "SELECT 1;"
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  server:
+    build: ./server
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    env_file:
+      - .env
+    environment:
+      - MYSQL_HOST=db
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  default:

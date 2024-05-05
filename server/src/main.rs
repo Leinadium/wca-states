@@ -1,5 +1,6 @@
 use std::{env, io};
-use actix_web::{web, App, HttpServer};
+use actix_web::{web, App, HttpServer, middleware::Logger};
+use env_logger;
 
 mod database;
 mod models;
@@ -9,6 +10,9 @@ mod routes;
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     dotenvy::dotenv().ok();
+
+    // enable logging
+    env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     // database connection
     let builder = database::get_conn_builder(
@@ -23,14 +27,18 @@ async fn main() -> io::Result<()> {
     // shared data
     let shared_data = web::Data::new(pool);
 
+    println!("Server starting...");
+    
     // starting
     HttpServer::new(move || {
         App::new()
+            .wrap(Logger::default())
             .app_data(shared_data.clone())
             .service(routes::get_person)
+            .service(routes::get_ranking_person)
     })
-    .bind("127.0.0.1:8080")?
-    .workers(2)
-    .run()
-    .await
+        .bind("0.0.0.0:8080")?
+        .workers(2)
+        .run()
+        .await
 }
