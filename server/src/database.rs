@@ -27,8 +27,8 @@ impl actix_web::ResponseError for DatabaseError {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ResponseRankingPersonEvents {
     pub event_id: String,
-    pub ranking: f32,
-    pub average: Option<i32>,
+    pub ranking: i32,
+    pub average: Option<f32>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -101,8 +101,11 @@ pub fn select_ranking_person(
 
         rankings.push(ResponseRankingPersonEvents {
             event_id: event_id,
-            ranking: (ranking as f32) / 100.0,
-            average 
+            ranking: ranking,
+            average: match average {
+                Some(avg) => Some((avg as f32) / 100.0),
+                None => None,
+            },
         });
         f_person_name = Some(person_name);
         f_state_name = Some(state_name);
