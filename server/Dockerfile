@@ -2,7 +2,6 @@ FROM rust:bookworm AS builder
 RUN USER=root cargo new --bin server
 WORKDIR /server
 COPY Cargo.toml Cargo.toml
-COPY Cargo.lock Cargo.lock
 RUN cargo build --release
 RUN rm src/*.rs
 COPY src src
