@@ -27,7 +27,7 @@ impl actix_web::ResponseError for DatabaseError {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ResponseRankingPersonEvents {
     pub event_id: String,
-    pub ranking: i32,
+    pub ranking: f32,
     pub average: Option<i32>,
 }
 
@@ -97,9 +97,13 @@ pub fn select_ranking_person(
             average,
             state_name,
             person_name
-        ) = mysql::from_row_opt(row?)?;
+        ): (String, i32, Option<i32>, String, String) = mysql::from_row_opt(row?)?;
 
-        rankings.push(ResponseRankingPersonEvents { event_id, ranking, average });
+        rankings.push(ResponseRankingPersonEvents {
+            event_id: event_id,
+            ranking: (ranking as f32) / 100.0,
+            average 
+        });
         f_person_name = Some(person_name);
         f_state_name = Some(state_name);
     }
