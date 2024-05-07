@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     environment:
-      - MYSQL_HOST=db
+      - MYSQL_HOST=wca-states-db
     depends_on:
       wca-states-db:
         condition: service_healthy
