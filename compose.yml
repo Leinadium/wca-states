@@ -1,5 +1,5 @@
 services:
-  db:
+  wca-states-db:
     build: ./db
     env_file:
       - .env
@@ -10,7 +10,9 @@ services:
       interval: 5s
       timeout: 5s
       retries: 30
-  server:
+    networks:
+      - internal
+  wca-states-server:
     build: ./server
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
@@ -21,6 +23,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
+    networks:
+      - internal
 networks:
-  default:
+  internal:
+    external: true
