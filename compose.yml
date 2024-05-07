@@ -21,7 +21,7 @@ services:
     environment:
       - MYSQL_HOST=db
     depends_on:
-      db:
+      wca-states-db:
         condition: service_healthy
     networks:
       - internal
