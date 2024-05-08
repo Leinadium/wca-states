@@ -9,7 +9,8 @@ func main() {
 	router.SetTrustedProxies(nil)
 
 	// routes
-	router.GET("/person/:id", GetPersonRanking)
+	api := router.Group("/api")
+	api.GET("/ranking/average/:id", GetPersonRankingAverage)
 
 	_ = router.Run()
 }

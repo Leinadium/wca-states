@@ -7,7 +7,7 @@ import (
 	"github.com/guregu/null/v5"
 )
 
-func GetPersonRanking(c *gin.Context) {
+func GetPersonRankingAverage(c *gin.Context) {
 	// geting param
 	wca_id := c.Param("id")
 	if wca_id == "" {
