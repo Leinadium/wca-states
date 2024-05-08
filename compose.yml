@@ -38,6 +38,13 @@ services:
         condition: service_healthy
     networks:
       - internal
+  
+  wca-states-front:
+    build: ./front
+    ports:
+      - ${FRONT_PORT}:80
+    networks:
+      - internal
 
 networks:
   internal:
