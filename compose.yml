@@ -22,7 +22,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - wca-states-db
+      wca-states-db:
+        condition: service_healthy
     networks:
       - internal
 

@@ -10,4 +10,4 @@ WORKDIR /
 COPY --from=build /server /server
 EXPOSE 8080
 USER nonroot:nonroot
-ENTRYPOINT ["/docker-api"]
+ENTRYPOINT ["/server"]
