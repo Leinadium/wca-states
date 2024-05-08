@@ -26,7 +26,6 @@ func main() {
 
 	if wca_export_db.Date == wca_export_api.ExportDate {
 		log.Fatalln("no updates. Closing...")
-		return
 	}
 
 	// downloading
@@ -34,14 +33,12 @@ func main() {
 	err = DownloadWcaDump(wca_export_api.SqlUrl)
 	if err != nil {
 		log.Fatalln("could not download wca dump")
-		return
 	}
 
 	// extract
 	log.Println("extracting...")
 	if err := ExtractZip(); err != nil {
-		log.Fatalln("coult not extract zip")
-		return
+		log.Fatalln("could not extract zip")
 	}
 
 	// importing
@@ -49,7 +46,6 @@ func main() {
 	log.Println("importing dump...")
 	if err := ImportSql(DUMP_SQL_FINAL); err != nil {
 		log.Fatalln("could not import dump")
-		return
 	}
 
 	// pos processing
@@ -57,7 +53,6 @@ func main() {
 	log.Println("running pos processing")
 	if err := ImportSql(POS_PROCESSING_SQL); err != nil {
 		log.Fatalln("could not import pos processing")
-		return
 	}
 
 	// cleaning
