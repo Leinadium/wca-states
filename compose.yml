@@ -12,19 +12,34 @@ services:
       retries: 30
     networks:
       - internal
+
+  # wca-states-server:
+  #   build: ./server-rust
+  #   ports:
+  #     - ${SERVER_PORT}:${SERVER_PORT}
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - MYSQL_HOST=wca-states-db
+  #   depends_on:
+  #     wca-states-db:
+  #       condition: service_healthy
+  #   networks:
+  #     - internal
+
   wca-states-server:
     build: ./server
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-    env_file:
-      - .env
     environment:
-      - MYSQL_HOST=wca-states-db
+      - GIN_MODE=release
+      - GORM_DSN=${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(wca-states-db:${MYSQL_PORT})/${MYSQL_DATABASE}?charset=utf8mb4&parseTime=True&loc=Local
     depends_on:
       wca-states-db:
         condition: service_healthy
     networks:
       - internal
+
 networks:
   internal:
     external: true
