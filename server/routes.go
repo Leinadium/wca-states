@@ -28,7 +28,7 @@ func GetPersonRanking(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "could not execute query"})
 		return
 	}
-	if query.RowsAffected == 0 {
+	if len(rankingInfo) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"message": "wca_id not found"})
 		return
 	}

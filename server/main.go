@@ -5,8 +5,6 @@ import (
 )
 
 func main() {
-	// _ = godotenv.Load(".env")
-
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
