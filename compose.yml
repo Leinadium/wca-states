@@ -42,7 +42,7 @@ services:
   wca-states-front:
     build: ./front
     ports:
-      - ${FRONT_PORT}:80
+      - ${FRONT_PORT}:3000
     networks:
       - internal
 
