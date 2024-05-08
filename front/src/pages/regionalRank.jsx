@@ -2,11 +2,11 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/footer";
 
-export default function Home(props){
+export default function RegionalRank(props){
     return(
-        <div className="Home">
+        <div>
             <Header />
-            <h1>*Nome do Projeto*</h1>
+            <h1>Regional Rank</h1>
             <Footer />
         </div>
     )
