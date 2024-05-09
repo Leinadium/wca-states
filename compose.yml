@@ -16,7 +16,7 @@ services:
   wca-states-updater:
     build: ./updater
     volumes:
-      - ./data/pos_processing.sql:/pos_processing.sql
+      - ./db/pos_processing.sql:/pos_processing.sql
     environment:
       - MYSQL_HOST=wca-states-db
     env_file:

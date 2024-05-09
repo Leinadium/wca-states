@@ -32,32 +32,32 @@ func main() {
 	log.Println("downloading...")
 	err = DownloadWcaDump(wca_export_api.SqlUrl)
 	if err != nil {
-		log.Fatalln("could not download wca dump")
+		log.Fatalln("could not download wca dump", err.Error())
 	}
 
 	// extract
 	log.Println("extracting...")
 	if err := ExtractZip(); err != nil {
-		log.Fatalln("could not extract zip")
+		log.Fatalln("could not extract zip", err.Error())
 	}
 
 	// importing
 	// OBS: this will not rollback if it fails!
 	log.Println("importing dump...")
 	if err := ImportSql(DUMP_SQL_FINAL); err != nil {
-		log.Fatalln("could not import dump")
+		log.Fatalln("could not import dump", err.Error())
 	}
 
 	// pos processing
 	// OBS: this will also not rollback if it fails!
 	log.Println("running pos processing")
 	if err := ImportSql(POS_PROCESSING_SQL); err != nil {
-		log.Fatalln("could not import pos processing")
+		log.Fatalln("could not import pos processing", err.Error())
 	}
 
 	// cleaning
 	log.Println("cleaning up")
 	if err := DeleteFiles(); err != nil {
-		log.Fatalln("could not delete files")
+		log.Fatalln("could not delete files", err.Error())
 	}
 }

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -16,9 +17,9 @@ import (
 )
 
 const WCA_EXPORT_PUBLIC = "https://www.worldcubeassociation.org/api/v0/export/public"
-const DUMP_SQL_ZIP = "wca_dump.sql.zip"
-const DUMP_SQL_FINAL = "wca_dump.sql"
-const POS_PROCESSING_SQL = "pos_processing.sql"
+const DUMP_SQL_ZIP = "./wca_dump.sql.zip"
+const DUMP_SQL_FINAL = "./wca_dump.sql"
+const POS_PROCESSING_SQL = "./pos_processing.sql"
 
 var MYSQL_USER = os.Getenv("MYSQL_USER")
 var MYSQL_PASSWORD = os.Getenv("MYSQL_PASSWORD")
@@ -110,7 +111,8 @@ func ExtractZip() error {
 		defer rc.Close()
 
 		if strings.HasSuffix(f.Name, ".sql") {
-			uncFile, err := os.Create(POS_PROCESSING_SQL)
+			log.Println("found sql file", f.Name)
+			uncFile, err := os.Create(DUMP_SQL_FINAL)
 			if err != nil {
 				return err
 			}
@@ -118,6 +120,7 @@ func ExtractZip() error {
 			if err != nil {
 				return err
 			}
+			done = true
 			break
 		}
 	}
@@ -138,7 +141,7 @@ func DeleteFiles() error {
 }
 
 func ImportSql(filename string) error {
-	return exec.Command(
+	cmd := exec.Command(
 		"mysql",
 		"--host", MYSQL_HOST,
 		"--port", MYSQL_PORT,
@@ -146,7 +149,10 @@ func ImportSql(filename string) error {
 		"-p"+MYSQL_PASSWORD,
 		MYSQL_DATABASE,
 		"-e", "source "+filename,
-	).Run()
+	)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 type WCAExportApiResponse struct {

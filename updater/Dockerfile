@@ -8,7 +8,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /updater github.com/Leinadium/wca-state
 
 # -------------------------------------
 FROM alpine:latest AS release
-RUN apk add --no-cache mysql-client
+RUN apk add --no-cache mysql-client mariadb-connector-c
 
 WORKDIR /
 COPY --from=build /updater /updater
