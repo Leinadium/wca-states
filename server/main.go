@@ -10,8 +10,8 @@ func main() {
 
 	// routes
 	api := router.Group("/api")
-	api.GET("/ranking/average/:id", GetPersonRankingAverage)
-	api.GET("/ranking/single/:id", GetPersonRankingSingle)
+	api.GET("/average/:id", GetPersonRankingAverage)
+	api.GET("/single/:id", GetPersonRankingSingle)
 
 	_ = router.Run()
 }
