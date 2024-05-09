@@ -84,9 +84,9 @@ func GetPersonRankingSingle(c *gin.Context) {
 
 	// convert to desired output
 	type rankings struct {
-		EventId string `json:"eventId"`
-		Ranking int32  `json:"ranking"`
-		Single  int32  `json:"single"`
+		EventId string  `json:"eventId"`
+		Ranking int32   `json:"ranking"`
+		Single  float32 `json:"single"`
 	}
 
 	var ranks []rankings
@@ -94,7 +94,7 @@ func GetPersonRankingSingle(c *gin.Context) {
 		ranks = append(ranks, rankings{
 			EventId: rank.EventId,
 			Ranking: rank.Ranking,
-			Single:  rank.Single,
+			Single:  float32(rank.Single) / 100.0,
 		})
 	}
 

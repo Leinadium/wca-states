@@ -24,6 +24,8 @@ services:
     depends_on:
       wca-states-db:
         condition: service_healthy
+    profiles:
+      - tools
     networks:
       - internal
 

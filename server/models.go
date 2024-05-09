@@ -22,7 +22,7 @@ type ResultByStateRankingSingle struct {
 	PersonName string `json:"personName" gorm:"column:personName"`
 	EventId    string `json:"eventId" gorm:"column:eventId"`
 	StateName  string `json:"stateName" gorm:"column:stateName"`
-	Single     int32  `json:"average" gorm:"column:average"`
+	Single     int32  `json:"average" gorm:"column:single"`
 	Ranking    int32  `json:"ranking" gorm:"column:ranking"`
 }
 
