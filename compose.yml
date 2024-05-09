@@ -12,6 +12,7 @@ services:
       retries: 30
     networks:
       - internal
+    restart: unless-stopped
 
   wca-states-updater:
     build: ./updater
@@ -41,6 +42,7 @@ services:
         condition: service_healthy
     networks:
       - internal
+    restart: unless-stopped
   
   wca-states-front:
     build: ./front
@@ -48,6 +50,7 @@ services:
       - ${FRONT_PORT}:3000
     networks:
       - internal
+    restart: unless-stopped
 
 networks:
   internal:
