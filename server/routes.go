@@ -42,10 +42,16 @@ func GetPersonRankingAverage(c *gin.Context) {
 
 	var ranks []rankings
 	for _, rank := range rankingInfo {
+		var average null.Float
+		if rank.EventId == "333fm" {
+			average = null.NewFloat(float64(rank.Average.ValueOrZero()), rank.Average.Valid)
+		} else {
+			average = null.NewFloat(float64(rank.Average.ValueOrZero())/100, rank.Average.Valid)
+		}
 		ranks = append(ranks, rankings{
 			EventId: rank.EventId,
 			Ranking: rank.Ranking,
-			Average: null.NewFloat(float64(rank.Average.ValueOrZero())/100, rank.Average.Valid),
+			Average: average,
 		})
 	}
 
@@ -91,10 +97,14 @@ func GetPersonRankingSingle(c *gin.Context) {
 
 	var ranks []rankings
 	for _, rank := range rankingInfo {
+		single := float32(rank.Single)
+		if rank.EventId != "333fm" {
+			single = single / 100.0
+		}
 		ranks = append(ranks, rankings{
 			EventId: rank.EventId,
 			Ranking: rank.Ranking,
-			Single:  float32(rank.Single) / 100.0,
+			Single:  single,
 		})
 	}
 
