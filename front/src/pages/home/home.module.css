@@ -1,0 +1,28 @@
+.Home{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 98vh;
+    text-align: center;
+}
+
+.links{
+    display: flex;
+    flex-direction: row;
+    gap: 4em;
+}
+
+.links>a{
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    padding: 1em;
+    border-radius: 1em;
+    transition-duration: .5s;
+}
+
+.links>a:hover{
+    color: #474747;
+    background-color: white;
+}

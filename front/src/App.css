@@ -3,7 +3,9 @@ header{
     flex-direction: row;
     justify-content: flex-end;
     gap: 1em;
-    border-bottom: 1px solid #474747;
+    border-bottom: 2px solid #474747;
+    font-size: 1.4em;
+    padding-bottom: 7px;
 }
 header>a{
     text-decoration: none;
@@ -13,5 +15,15 @@ header>a{
 
 header>a:hover{
     cursor: pointer;
-    color: rgb(184, 184, 184);
+    color: #b8b8b8;
+}
+
+footer>div>a{
+    text-decoration: none;
+    color: white;
+    transition-duration: .2s;
+}
+
+footer>div>a:hover{
+    color: #b8b8b8;
 }
