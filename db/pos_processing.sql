@@ -1,17 +1,63 @@
+ALTER DATABASE wca CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
 CREATE INDEX idx_id ON Competitions (id);
 CREATE INDEX idx_countryId ON Competitions (countryId);
 CREATE INDEX idx_personId ON Results (personId);
 CREATE INDEX idx_competitionId ON Results (competitionId);
 CREATE INDEX idx_id ON Persons (id);
 
+DROP TABLE IF EXISTS StatesId;
+CREATE TABLE StatesId (
+    id CHAR(2),
+    name VARCHAR(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+    PRIMARY KEY (id)
+);
+INSERT INTO StatesId (id, name) VALUES
+    ('AC', 'Acre'),
+    ('AL', 'Alagoas'),
+    ('AP', 'Amapá'),
+    ('AM', 'Amazonas'),
+    ('BA', 'Bahia'),
+    ('CE', 'Ceará'),
+    ('DF', 'Distrito Federal'),
+    ('ES', 'Espírito Santo'),
+    ('GO', 'Goiás'),
+    ('MA', 'Maranhão'),
+    ('MT', 'Mato Grosso'),
+    ('MS', 'Mato Grosso do Sul'),
+    ('MG', 'Minas Gerais'),
+    ('PA', 'Pará'),
+    ('PB', 'Paraíba'),
+    ('PR', 'Paraná'),
+    ('PE', 'Pernambuco'),
+    ('PI', 'Piauí'),
+    ('RJ', 'Rio de Janeiro'),
+    ('RN', 'Rio Grande do Norte'),
+    ('RS', 'Rio Grande do Sul'),
+    ('RO', 'Rondônia'),
+    ('RR', 'Roraima'),
+    ('SC', 'Santa Catarina'),
+    ('SP', 'São Paulo'),
+    ('SE', 'Sergipe'),
+    ('TO', 'Tocantins')
+;
+
 DROP TABLE IF EXISTS CountryStates;
-CREATE TABLE CountryStates AS
+CREATE TABLE CountryStates2 AS
     SELECT
         c.id AS id,
-        SUBSTRING_INDEX(c.cityName, ', ', -1) AS name
-        -- SUBSTRING_INDEX(c.cityName, ', ', 1) AS city
-    FROM Competitions c
-    WHERE c.countryId = 'Brazil'
+        c.name as cname,
+        s.id AS name
+    FROM
+        (
+            SELECT
+                c.id AS id,
+                SUBSTRING_INDEX(c.cityName, ', ', -1) AS name
+            FROM Competitions c
+            WHERE c.countryId = 'Brazil'
+        ) AS c 
+        LEFT JOIN 
+            StatesId s ON c.name = s.name
 ;
 CREATE INDEX idx_cid ON CountryStates (id);
 CREATE INDEX idx_state ON CountryStates (name);
