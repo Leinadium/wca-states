@@ -63,6 +63,7 @@ CREATE TABLE CountryStates AS
         LEFT JOIN 
             StatesId s ON c.name = s.name
 ;
+ALTER TABLE CountryStates CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_cid ON CountryStates (id);
 CREATE INDEX idx_state ON CountryStates (name);
 
@@ -84,6 +85,7 @@ CREATE TABLE CompetitionsEachState AS
         p.countryId = 'Brazil'
     GROUP BY p.id, s.name
 ;
+ALTER TABLE CompetitionsEachState CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_id ON CompetitionsEachState (id);
 CREATE INDEX state ON CompetitionsEachState (name);
 
@@ -103,6 +105,7 @@ CREATE TABLE CompetitionsEachCountry AS
         p.countryId = 'Brazil'
     GROUP BY p.id, c.countryId
 ;
+ALTER TABLE CompetitionsEachCountry CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_id ON CompetitionsEachCountry (id);
 CREATE INDEX idx_countryId ON CompetitionsEachCountry (countryId);
 
@@ -136,6 +139,7 @@ CREATE TABLE StatePerson AS
         p.countryId = 'Brazil' AND
         cecMaxCountry.countryId = 'Brazil'
 ;
+ALTER TABLE StatePerson CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_id ON StatePerson (id);
 CREATE INDEX idx_state ON StatePerson (stateName);
 CREATE INDEX idx_countryId ON StatePerson (countryId);
@@ -155,13 +159,13 @@ CREATE TABLE ResultsByState AS
                 ON r.personId = sp.id
     GROUP BY r.personId, r.personName, r.eventId, sp.stateName;
 ;
+ALTER TABLE ResultsByState CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_id ON ResultsByState (personId);
 CREATE INDEX idx_eventId ON ResultsByState (eventId);
 CREATE INDEX idx_state ON ResultsByState (stateName);
 CREATE INDEX idx_average ON ResultsByState (average);
 CREATE INDEX idx_single ON ResultsByState (single);
 
--- --------------------------------
 DROP TABLE IF EXISTS ResultsByStateRankingSingle;
 CREATE TABLE ResultsByStateRankingSingle AS
     SELECT
@@ -184,6 +188,7 @@ CREATE TABLE ResultsByStateRankingSingle AS
             ) AS rs2
                 ON rs1.personId = rs2.personId AND rs1.eventId = rs2.eventId AND rs1.stateName = rs2.stateName
 ;
+ALTER TABLE ResultsByStateRankingSingle CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_personId ON ResultsByStateRankingSingle (personId);
 CREATE INDEX idx_eventId ON ResultsByStateRankingSingle (eventId);
 CREATE INDEX idx_state ON ResultsByStateRankingSingle (stateName);
@@ -210,6 +215,7 @@ CREATE TABLE ResultsByStateRankingAverage AS
             ) AS rs2
                 ON rs1.personId = rs2.personId AND rs1.eventId = rs2.eventId AND rs1.stateName = rs2.stateName
 ;
+ALTER TABLE ResultsByStateRankingAverage CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_personId ON ResultsByStateRankingAverage (personId);
 CREATE INDEX idx_eventId ON ResultsByStateRankingAverage (eventId);
 CREATE INDEX idx_state ON ResultsByStateRankingAverage (stateName);
