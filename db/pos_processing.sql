@@ -43,9 +43,11 @@ INSERT INTO StatesId (id, name) VALUES
 ;
 ALTER TABLE StatesId CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 ALTER TABLE Competitions CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+ALTER TABLE Persons CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
 
 DROP TABLE IF EXISTS CountryStates;
-CREATE TABLE CountryStates2 AS
+CREATE TABLE CountryStates AS
     SELECT
         c.id AS id,
         c.name as cname,
