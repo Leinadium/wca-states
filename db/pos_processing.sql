@@ -41,6 +41,8 @@ INSERT INTO StatesId (id, name) VALUES
     ('SE', 'Sergipe'),
     ('TO', 'Tocantins')
 ;
+ALTER TABLE StatesId CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+ALTER TABLE Competitions CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS CountryStates;
 CREATE TABLE CountryStates2 AS
