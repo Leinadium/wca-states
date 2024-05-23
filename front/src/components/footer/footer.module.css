@@ -1,7 +1,31 @@
 #linkGit{
     display: flex;
-    text-align: center;
     align-items: center;
+}
+
+#gitIcon{
+    margin-right: 4px;
+}
+
+footer{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    
+    align-items: center;
+    gap: 6px;
+}
+
+footer>div{
+    border-right: 1px solid white;
+    padding-right: .4em;
+}
+
+footer>div>a{
+    text-decoration: none;
+    color: white;
+    transition-duration: .2s;
+}
+
+footer>div>a:hover{
+    color: #b8b8b8;
 }

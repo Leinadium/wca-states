@@ -17,13 +17,3 @@ header>a:hover{
     cursor: pointer;
     color: #b8b8b8;
 }
-
-footer>div>a{
-    text-decoration: none;
-    color: white;
-    transition-duration: .2s;
-}
-
-footer>div>a:hover{
-    color: #b8b8b8;
-}

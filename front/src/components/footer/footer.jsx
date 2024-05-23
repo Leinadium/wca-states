@@ -5,7 +5,8 @@ export default function Footer(props) {
     return (
         <footer>
             <div><strong>&copy;</strong> <a href="https://github.com/SrTesch">Tesch</a> e <a href="https://github.com/Leinadium">Schweppes</a></div>
-            <div id={styles.linkGit}><a href="https://github.com/Leinadium/wca-states"><GitHubIcon />GitHub Project</a></div>
+            <div><a href="https://github.com/Leinadium/wca-states" id={styles.linkGit}><GitHubIcon id={styles.gitIcon} />GitHub Project</a></div>
+            <div>Last update: NEVER</div>
         </footer>
     );
 }

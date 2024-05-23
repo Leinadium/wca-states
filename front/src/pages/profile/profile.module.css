@@ -1,0 +1,37 @@
+.profilePage{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 87vh;
+}
+
+
+form{
+    display: flex;
+    flex: row;
+    justify-content: center;
+    margin: 20px;
+    gap: 20px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.profile{
+    text-align: center;
+}
+
+
+.profileRanking{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+}
