@@ -4,23 +4,24 @@ import Footer from "../../components/footer/footer";
 import { useState } from "react";
 import styles from "./profile.module.css"
 import AppsIcon from '@mui/icons-material/Apps';
+import Axios from "axios";
 
 export default function ProfilePage(props){
 
     const nomesEventos = {
-        "222" : "Cubo 2x2x2",
+        "222" : ["Cubo 2x2x2", <AppsIcon />],
         "333" : ["Cubo 3x3x3", <AppsIcon />],
-        "444" : "Cubo 4x4x4",
-        "555" : "Cubo 5x5x5",
-        "666" : "Cubo 6x6x6",
-        "777" : "Cubo 7x7x7",
-        "333ft": "3x3x3 com os pés",
-        "333oh": "3x3x3 com uma mão",
-        "333bf": "3x3x3 vendado",
-        "minx": "Megaminx",
-        "pyram": "Pyraminx",
-        "sq1" : "Square-1",
-        "skewb": "Skewb"
+        "444" : ["Cubo 4x4x4", <AppsIcon />],
+        "555" : ["Cubo 5x5x5", <AppsIcon />],
+        "666" : ["Cubo 6x6x6", <AppsIcon />],
+        "777" : ["Cubo 7x7x7", <AppsIcon />],
+        "333ft": ["3x3x3 com os pés", <AppsIcon />],
+        "333oh": ["3x3x3 com uma mão", <AppsIcon />],
+        "333bf": ["3x3x3 vendado", <AppsIcon />],
+        "minx": ["Megaminx", <AppsIcon />],
+        "pyram": ["Pyraminx", <AppsIcon />],
+        "sq1" : ["Square-1", <AppsIcon />],
+        "skewb": ["Skewb", <AppsIcon />]
     }
 
     const data = {
@@ -58,10 +59,13 @@ export default function ProfilePage(props){
 
     const handleInfos =  e =>{
         e.preventDefault();
-        console.log(`Consulta na api simulando os dados do id: ${id}`);
+        console.log(`Consulta na api simulando os dados do id: ${id}...`);
+        // Axios.get(`https://ranking-estadual-wca.leinadium.dev/api/average/${id}`).then((response)=>{
+        //     console.log(`response.data = ${response.data}`);
+        //     setDados(response.data)
+        // })
         setDados(data);
         setProfile(true);
-        console.log(dados.rankings)
     } 
     return(
         <div>
