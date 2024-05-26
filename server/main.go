@@ -1,10 +1,8 @@
 package main
 
 import (
-	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/guregu/null/v5"
 )
 
 func main() {
