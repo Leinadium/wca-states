@@ -7,8 +7,8 @@ export default function Home(props){
         <div className={styles.Home}>
             <h1>*Nome do Projeto*</h1>
             <div className={styles.links}>
-                <a href="/profile">Profile Page</a>
-                <a href="/regionalRank">Regional Rank</a>
+                <a href="/profile">Rankings Pessoais</a>
+                <a href="/regionalRank">Rankings Regionais</a>
             </div>
             <Footer />
         </div>
