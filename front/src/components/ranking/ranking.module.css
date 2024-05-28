@@ -6,6 +6,7 @@
 .table{
     max-width: 1000px;
     margin: auto;
+    overflow-x: auto;
 }
 
 .row{
@@ -16,6 +17,7 @@
     color: #161616;
     justify-content: space-between;
     padding: 0 .4em;
+    min-width: 600px;
 }
 
 .title{
@@ -23,6 +25,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    min-width: 600px;
     padding: 0 .4em;
 }
 
@@ -40,6 +43,7 @@
 #eventName{
     display: flex;
     justify-content: start;
+    flex: 2;
 }
 
 #rankingAverage, #avgT{
@@ -51,10 +55,11 @@
     width: 1.4em;
 }
 
-#eventName{
-    width: 200px;
+#nameT{
+    flex: 2;
+    display: flex;
+    justify-content: start;
 }
-
 #wcaProfile{
     text-decoration: none;
     color: white;
