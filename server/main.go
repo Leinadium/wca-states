@@ -18,7 +18,7 @@ func main() {
 
 	// routes
 	api := router.Group("/api")
-	api.GET("/person/both/:id/", GetPersonRankingBoth)
+	api.GET("/person/both/:id", GetPersonRankingBoth)
 	api.GET("/person/average/:id", GetPersonRankingAverage)
 	api.GET("/person/single/:id", GetPersonRankingSingle)
 
