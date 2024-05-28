@@ -5,7 +5,7 @@ import styles from "./home.module.css"
 export default function Home(props){
     return(
         <div className={styles.Home}>
-            <h1>*Nome do Projeto*</h1>
+            <h1>Ranking Estadual WCA</h1>
             <div className={styles.links}>
                 <a href="/profile">Rankings Pessoais</a>
                 <a href="/regionalRank">Rankings Regionais</a>
