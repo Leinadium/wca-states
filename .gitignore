@@ -3,3 +3,4 @@
 **/.env
 
 db/wca_dump.sql
+go.work

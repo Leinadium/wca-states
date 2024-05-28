@@ -137,7 +137,8 @@ CREATE TABLE StatePerson AS
             ) AS cecMaxCountry on p.id = cecMaxCountry.id
     WHERE
         p.countryId = 'Brazil' AND
-        cecMaxCountry.countryId = 'Brazil'
+        cecMaxCountry.countryId = 'Brazil' AND
+        cesMaxState.name IS NOT NULL
 ;
 ALTER TABLE StatePerson CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_id ON StatePerson (id);

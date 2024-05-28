@@ -1,36 +1,26 @@
 package main
 
 import (
-	"net/http"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
-	router.Use(corsMiddleware())
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"https://ranking-estadual-wca.leinadium.dev", "http://localhost:5173"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type"},
+		AllowCredentials: true,
+	}))
 
 	// routes
 	api := router.Group("/api")
-	api.GET("/average/:id", GetPersonRankingAverage)
-	api.GET("/single/:id", GetPersonRankingSingle)
+	api.GET("/person/both/:id/", GetPersonRankingBoth)
+	api.GET("/person/average/:id", GetPersonRankingAverage)
+	api.GET("/person/single/:id", GetPersonRankingSingle)
 
 	_ = router.Run()
-}
-
-func corsMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(http.StatusOK)
-			return
-		}
-
-		c.Next()
-	}
 }
