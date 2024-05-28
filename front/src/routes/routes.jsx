@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import ProfilePage from "../pages/profile/profile.jsx";
-import RegionalRank from "../pages/regionalRank";
+import RegionalRank from "../pages/regionalRank/regionalRank.jsx";
 
 const Rotas = () =>{
     return(

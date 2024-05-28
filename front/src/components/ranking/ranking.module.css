@@ -1,9 +1,10 @@
 .profile{
     text-align: center;
+    margin-bottom: 1em;
 }
 
 .table{
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -29,7 +30,7 @@
     background-color: #a8a8a8;
 }
 
-.rowCat{
+.rowCat, .rowTitle{
     display: flex;
     align-items: center;
     flex: 1;
@@ -41,7 +42,7 @@
     justify-content: start;
 }
 
-#avgR{
+#rankingAverage, #avgT{
     display: flex;
     justify-content: end;
 }
