@@ -17,7 +17,7 @@ export default function ProfilePage(props){
     const handleInfos =  e =>{
         e.preventDefault();
         setWcaProfile(`https://www.worldcubeassociation.org/persons/${id}`);
-        console.log(`Consulta na api pegando os dados do id: ${id.toUpperCase()}...`);
+        console.log(`Consulta na api pegando os dados do id: ${id.toUpperCase()}`);
             Axios.get(`https://ranking-estadual-wca.leinadium.dev/api/person/both/${id.toUpperCase()}`).then((response)=>{
                 console.log(`response.data = ${response.data}`);
 
@@ -72,11 +72,13 @@ export default function ProfilePage(props){
                 temporaryData.rankings.sort(comparar);
 
                 setDados(temporaryData)
-                console.log("temporary data" + temporaryData)
                 setProfile(true);
             }).catch((error) =>{
                 setProfile(false);
-                window.alert("Infelizmente nao conseguimos achar seu ID");
+                if(error.response.status == 404)
+                    window.alert(`Não foi possível encontrar o seu ID\n Tem certeza que está correto: ${id} ?`)
+                else
+                    window.alert("Não conseguimos processar sua requisição!")
             })
     }
 
