@@ -18,12 +18,12 @@ func (ResultByStateRankingAverage) TableName() string {
 }
 
 type ResultByStateRankingSingle struct {
-	PersonId   string `json:"personId" gorm:"column:personId"`
-	PersonName string `json:"personName" gorm:"column:personName"`
-	EventId    string `json:"eventId" gorm:"column:eventId"`
-	StateName  string `json:"stateName" gorm:"column:stateName"`
-	Single     int32  `json:"average" gorm:"column:single"`
-	Ranking    int32  `json:"ranking" gorm:"column:ranking"`
+	PersonId   string     `json:"personId" gorm:"column:personId"`
+	PersonName string     `json:"personName" gorm:"column:personName"`
+	EventId    string     `json:"eventId" gorm:"column:eventId"`
+	StateName  string     `json:"stateName" gorm:"column:stateName"`
+	Single     null.Int32 `json:"average" gorm:"column:single"`
+	Ranking    int32      `json:"ranking" gorm:"column:ranking"`
 }
 
 func (ResultByStateRankingSingle) TableName() string {

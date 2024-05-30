@@ -90,16 +90,18 @@ func GetPersonRankingSingle(c *gin.Context) {
 
 	// convert to desired output
 	type rankings struct {
-		EventId string  `json:"eventId"`
-		Ranking int32   `json:"ranking"`
-		Single  float32 `json:"single"`
+		EventId string     `json:"eventId"`
+		Ranking int32      `json:"ranking"`
+		Single  null.Float `json:"single"`
 	}
 
 	var ranks []rankings
 	for _, rank := range rankingInfo {
-		single := float32(rank.Single)
-		if rank.EventId != "333fm" {
-			single = single / 100.0
+		var single null.Float
+		if rank.EventId == "333fm" {
+			single = null.NewFloat(float64(rank.Single.ValueOrZero()), rank.Single.Valid)
+		} else {
+			single = null.NewFloat(float64(rank.Single.ValueOrZero())/100, rank.Single.Valid)
 		}
 		ranks = append(ranks, rankings{
 			EventId: rank.EventId,
@@ -149,7 +151,7 @@ func GetPersonRankingBoth(c *gin.Context) {
 	// convert to desired output
 	type rankingMapValue struct {
 		RankingSingle  int32
-		Single         float32
+		Single         null.Float
 		RankingAverage int32
 		Average        null.Float
 	}
@@ -169,11 +171,11 @@ func GetPersonRankingBoth(c *gin.Context) {
 	}
 
 	for _, rank := range singleInfo {
-		var single float32
+		var single null.Float
 		if rank.EventId == "333fm" {
-			single = float32(rank.Single)
+			single = null.NewFloat(float64(rank.Single.ValueOrZero()), rank.Single.Valid)
 		} else {
-			single = float32(rank.Single) / 100.0
+			single = null.NewFloat(float64(rank.Single.ValueOrZero())/100, rank.Single.Valid)
 		}
 		// check if already created
 		if _, ok := rankingMap[rank.EventId]; ok {
@@ -196,7 +198,7 @@ func GetPersonRankingBoth(c *gin.Context) {
 	type rankingsFinal struct {
 		EventId        string     `json:"eventId"`
 		RankingSingle  int32      `json:"rankingSingle"`
-		Single         float32    `json:"single"`
+		Single         null.Float `json:"single"`
 		RankingAverage int32      `json:"rankingAverage"`
 		Average        null.Float `json:"average"`
 	}
