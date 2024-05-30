@@ -153,8 +153,8 @@ CREATE TABLE ResultsByState AS
         r.personName AS personName,
         r.eventId AS eventId,
         sp.stateName AS stateName,
-        MIN(NULLIF(NULLIF(r.average, -1),0)) AS average,
-        MIN(NULLIF(NULLIF(r.best, -1),0)) AS single
+        MIN(NULLIF(NULLIF(NULLIF(r.average, -2),-1),0)) AS average,
+        MIN(NULLIF(NULLIF(NULLIF(r.best, -2),-1),0)) AS single
     FROM
         Results r
             JOIN StatePerson sp
@@ -175,7 +175,7 @@ CREATE TABLE ResultsByStateRankingSingle AS
         rs1.personName AS personName,
         rs1.eventId AS eventId,
         rs1.stateName AS stateName,
-        rs1.single,
+        NULLIF(NULLIF(NULLIF(rs1.single, 0),-1),-2) as single,
         dense_rank() OVER (PARTITION BY rs2.eventId, rs2.stateName ORDER BY rs2.single ASC) AS ranking
     FROM
         ResultsByState rs1
@@ -184,11 +184,35 @@ CREATE TABLE ResultsByStateRankingSingle AS
                     personId,
                     eventId,
                     stateName,
-                    COALESCE(single, 999999) AS single
+                    COALESCE(NULLIF(NULLIF(NULLIF(single,0),-1),-2), 9999999999) AS single
                 FROM
                     ResultsByState
             ) AS rs2
                 ON rs1.personId = rs2.personId AND rs1.eventId = rs2.eventId AND rs1.stateName = rs2.stateName
+    -- WHERE rs1.eventId != '333mbf'
+    -- UNION
+    -- SELECT
+    --     rs3.personId AS personId,
+    --     rs3.personName AS personName,
+    --     rs3.eventId AS eventId,
+    --     rs3.stateName AS stateName,
+    --     rs4.single,
+    --     dense_rank() OVER (PARTITION BY rs4.eventId, rs4.stateName ORDER BY rs4.ordering ASC) AS ranking
+    -- FROM
+    --     ResultsByState rs3
+    --         LEFT JOIN (
+    --             SELECT
+    --                 personId as personId,
+    --                 eventId as eventId,
+    --                 stateName as stateName,
+    --                 COALESCE((99 - (single DIV 10000000)), 999999) AS single,
+    --                 single AS ordering
+    --             FROM
+    --                 ResultsByState
+    --             WHERE eventId = '333mbf'
+    --         ) AS rs4
+    --             ON rs3.personId = rs4.personId AND rs3.eventId = rs4.eventId AND rs3.stateName = rs4.stateName
+    -- WHERE rs3.eventId = '333mbf'
 ;
 ALTER TABLE ResultsByStateRankingSingle CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE INDEX idx_personId ON ResultsByStateRankingSingle (personId);
@@ -202,7 +226,7 @@ CREATE TABLE ResultsByStateRankingAverage AS
         rs1.personName AS personName,
         rs1.eventId AS eventId,
         rs1.stateName AS stateName,
-        rs1.average,
+        NULLIF(NULLIF(NULLIF(rs1.average, 0),-1),-2) as average,
         dense_rank() OVER (PARTITION BY rs2.eventId, rs2.stateName ORDER BY rs2.average ASC) AS ranking
     FROM
         ResultsByState rs1
@@ -211,7 +235,7 @@ CREATE TABLE ResultsByStateRankingAverage AS
                     personId,
                     eventId,
                     stateName,
-                    COALESCE(average, 999999) AS average
+                    COALESCE(NULLIF(NULLIF(NULLIF(average,0),-1),-2), 9999999999) AS average
                 FROM
                     ResultsByState
             ) AS rs2

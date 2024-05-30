@@ -10,6 +10,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 30
+    volumes:
+      - db-data:/var/lib/mysql
     networks:
       - internal
     restart: unless-stopped
@@ -55,3 +57,6 @@ services:
 networks:
   internal:
     external: true
+
+volumes:
+  db-data:
